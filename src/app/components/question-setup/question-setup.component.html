@@ -1,0 +1,123 @@
+<mat-expansion-panel class="question"
+                     *ngIf="!isEdit"
+                     (opened)="panelOpenState = true"
+                     (closed)="panelOpenState = false">
+  <mat-expansion-panel-header class="question__header"
+                              [collapsedHeight]="'50px'"
+                              [expandedHeight]="'50px'">
+    <span class="question__title">
+      <mat-checkbox class="checkbox"
+                    title="Включить вопрос в активную рассылку"
+                    [checked]="question.isActive"
+                    (change)="onQuestonStatusChange($event)"
+                    (click)="$event.stopPropagation()">
+      </mat-checkbox>
+      <span class="txt">
+        {{ question.name }}
+      </span>
+
+    </span>
+    <span class="question__toolbar">
+      <span class="txt _correct">{{ question.correct || 0 }}</span>
+      <span class="txt">{{ question.total || 0}}</span>
+      <button mat-icon-button class="button _edit"(click)="onClickEditQuestion($event)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button class="button _delete" (click)="onClickRemoveQuestion($event)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </span>
+  </mat-expansion-panel-header>
+
+  <section class="question__body">
+    <div class="question__form">
+      <ng-container *ngFor="let item of question.answerOptions">
+        <mat-form-field>
+          <input matInput
+                 class="input _answer"
+                 [ngClass]="{'_correct': item.correctAnswer}"
+                 [value]="item.name" disabled>
+        </mat-form-field>
+      </ng-container>
+    </div>
+
+    <span class="txt" *ngIf="question.description">{{ question.description }}</span>
+  </section>
+
+</mat-expansion-panel>
+
+<mat-card *ngIf="isEdit">
+  <form class="question-form"
+        [formGroup]="formGroup"
+        (ngSubmit)="onSubmit()">
+    <header class="question-form__header">
+      <mat-checkbox class="checkbox"
+                    formControlName="isActiveQuestion">
+        Вкл. в тему
+      </mat-checkbox>
+      <div class="question-form__toolbar">
+        <button mat-flat-button class="button _reset" (click)="isEdit = false; closeForm.emit()">ОТМЕНА</button>
+        <button mat-flat-button class="button _save">СОХРАНИТЬ</button>
+      </div>
+    </header>
+
+    <section class="question-form__questions">
+      <mat-form-field>
+        <input matInput
+               class="input"
+               placeholder="Введите текст вопроса"
+               formControlName="questionTitle"
+               [required]="true">
+      </mat-form-field>
+
+      <section class="question-form__answers">
+        <h4 class="question-form__answers-title">Варианты ответов:</h4>
+        <ul class="question-form__answers-list">
+          <li class="question-form__answers-list-item" *ngFor="let item of formAnswers.controls; let i = index">
+            <ng-container [formGroup]="item">
+              <div class="box _answer">
+                <mat-form-field [ngClass]="{'_correct': i === 0}">
+                  <input matInput
+                         class="input"
+                         [placeholder]="answerPlaceholder(i)"
+                         [required]="true"
+                         formControlName="answer">
+                </mat-form-field>
+                <button mat-icon-button
+                        *ngIf="formAnswers.controls.length > 2 && i > 0"
+                        class="button _remove-answer"
+                        (click)="removeAnswer(i)">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            </ng-container>
+          </li>
+        </ul>
+
+        <div class="box">
+          <button mat-flat-button
+                  (click)="addAnswer()"
+                  class="button _add-answer">+ Добавить вариант ответа</button>
+        </div>
+
+        <mat-form-field>
+          <textarea matInput class="input"
+                    formControlName="description"
+                    placeholder="введите описание вопроса"
+                    [required]="true"></textarea>
+        </mat-form-field>
+
+      </section>
+    </section>
+
+  </form>
+</mat-card>
+
+<ng-container *ngIf="confirmDeleteQuestion">
+  <app-confirm title="Удалить этот вопрос из темы?"
+               confirmTitle="Удалить"
+               cancelTitle="Отменить"
+               (confirm)="deleteQuestion()"
+               (cancel)="confirmDeleteQuestion = false">
+  </app-confirm>
+</ng-container>

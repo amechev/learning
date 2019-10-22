@@ -1,0 +1,16 @@
+<form class="form" [formGroup]="formGroupEditTheme">
+  <input matInput
+         type="text"
+         class="input"
+         [autofocus]
+         formControlName="themeName">
+
+  <span class="toolbar">
+          <button mat-icon-button class="button" (click)="onSubmit()">
+            <mat-icon>done</mat-icon>
+          </button>
+          <button mat-icon-button class="button" (click)="onClose()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </span>
+</form>

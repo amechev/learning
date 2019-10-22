@@ -1,0 +1,17 @@
+@import "mixins";
+@import 'fonts';
+@import "variables";
+
+.wrapper {
+  position: relative;
+  display: block;
+  @include font-stack('Roboto');
+  min-height: 100vh;
+  min-width: 1200px;
+  background-color: $color-bg-gray;
+
+  &._blocked {
+    height: 100vh;
+    overflow: hidden;
+  }
+}

@@ -1,0 +1,66 @@
+<div class="questions" >
+  <ng-container *ngIf="testing && testing.length">
+    <app-question *ngFor="let item of testing; let i = index"
+                  [data]="item"
+                  [isFirst]="i === 0"
+                  (sendAnswer)="updateTesting($event)">
+    </app-question>
+  </ng-container>
+
+  <mat-card *ngIf="testing && !testing.length"
+    class="training-empty">
+    <span>Сегодня еще не было вопросов<br>нужно немножко подождать</span>
+    <span class="training-empty__loader">
+      <span class="hourglass">
+        <span class="sand"></span>
+        <span class="stream"></span>
+      </span>
+    </span>
+  </mat-card>
+</div>
+
+<div class="charts" *ngIf="testing">
+  <mat-card class="charts__header">
+    <div class="charts__header-week">
+      <button mat-icon-button (click)="prevWeek()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <span class="txt">{{ dateFromTxt }} - {{ dateTillTxt }}</span>
+      <button mat-icon-button (click)="nextWeek()">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+    <div class="charts__result" *ngIf="myStat">
+      <div class="charts__result-item">
+        <span class="txt">
+        Мой рейтинг:
+      </span>
+        <span class="txt _value">{{ myStat.myRating || 0 }}</span>
+      </div>
+      <div class="charts__result-item">
+        <span class="txt">
+        Баллов:
+        </span>
+        <span class="txt _value">{{ myStat.points || 0 }}</span>
+      </div>
+    </div>
+
+  </mat-card>
+  <mat-card class="table-box">
+    <app-chart *ngIf="statistics && isStatisticsShort"
+               [data]="statistics | slice : 0 :20"
+               [myPosition]="myStat.myRating"></app-chart>
+    <app-chart *ngIf="statistics && !isStatisticsShort"
+               [data]="statistics"
+               [myPosition]="myStat.myRating"></app-chart>
+    <button mat-flat-button *ngIf="statistics && statistics.length && isStatisticsShort"
+            class="button _load-more"
+            (click)="loadAllStatistics()">
+      <span class="txt">Показать все</span>
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+  </mat-card>
+</div>
+
+<app-spinner *ngIf="!(testing)"
+             [isSpinnerOn]="true"></app-spinner>

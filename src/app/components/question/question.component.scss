@@ -1,0 +1,128 @@
+@import "mixins";
+@import 'fonts';
+@import "variables";
+
+.question {
+}
+
+.question__header {
+  &::ng-deep {
+    .mat-content {
+      display: flex;
+      justify-content: space-between;
+      padding-right: 16px;
+      align-items: center;
+    }
+  }
+}
+
+.question__theme {
+  font-size: 14px;
+  opacity: 0.6;
+
+  &._closed {
+    font-size: 16px;
+    opacity: 1;
+  }
+}
+
+.question__title {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 400
+}
+
+.button {
+  &._answer {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  &::ng-deep .mat-button-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &._correct {
+    border-color: $color-green;
+    background-color: lighten($color-green, 50%);;
+    color: $color-txt;
+
+    .icon-correct {
+      display: flex;
+      color: $color-green;
+      border: 1px solid $color-green;
+    }
+  }
+
+  &._wrong {
+    border-color: $color-error;
+    background-color: lighten($color-error, 40%);
+    color: $color-txt;
+
+    .icon-wrong {
+      display: flex;
+      color: $color-error;
+      border: 1px solid $color-error;
+    }
+  }
+
+  .icon-correct,
+  .icon-wrong {
+    display: none;
+    border-radius: 50%;
+    font-size: 18px;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0.8);
+  }
+}
+
+.question__description {
+  box-shadow: none!important;
+
+  &:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled='true']):hover {
+    background-color: transparent;
+  }
+
+  &::ng-deep {
+    .mat-expansion-panel-body {
+      padding: 0!important;
+    }
+
+    .mat-expansion-panel-header {
+      padding: 0 6px!important;
+
+      .mat-content {
+        display: block;
+        padding: 0 10px;
+      }
+    }
+  }
+}
+
+.txt {
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+.points {
+  font-size: 14px;
+  line-height: 16px;
+  color: $color-txt;
+  white-space: nowrap;
+
+  &._correct {
+    color: $color-green;
+  }
+
+  &._wrong {
+    color: $color-error;
+  }
+}

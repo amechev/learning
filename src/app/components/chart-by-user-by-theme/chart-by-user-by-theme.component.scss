@@ -1,0 +1,38 @@
+@import "mixins";
+@import "variables";
+
+.mat-row {
+  min-height: 20px;
+}
+
+.mat-header-row {
+  min-height: 40px;
+}
+
+.mat-column-total {
+  flex: 0 0 50px;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.mat-column-correct {
+  flex: 0 0 70px;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.mat-column-name {
+  &.mat-cell {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  flex: 2 1 150px;
+}
+
+.mat-column-correct.mat-cell {
+  color: $color-green;
+}
+
+.title._empty {
+  color: $color-error
+}

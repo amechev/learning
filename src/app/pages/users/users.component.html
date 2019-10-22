@@ -1,0 +1,18 @@
+<mat-card class="users" *ngIf="statistics">
+  <app-chart [data]="statistics" [isAdminLocation]="true" (userSelect)="onUserSelect($event)"></app-chart>
+</mat-card>
+
+<mat-card class="user-themes"
+          [ngClass]="{'_loading': isThemesLoading}"
+          *ngIf="statisticsByUser">
+  <app-chart-by-user [data]="statisticsByUser" (themeSelect)="onThemeSelect($event)">
+  </app-chart-by-user>
+</mat-card>
+
+<mat-card class="user-theme-questions"
+          [ngClass]="{'_loading': isThemesLoading || isQuestionsLoading}"
+          *ngIf="statisticsByUserByTheme">
+  <app-chart-by-user-by-theme [data]="statisticsByUserByTheme"></app-chart-by-user-by-theme>
+</mat-card>
+
+<app-spinner [isSpinnerOn]="true" *ngIf="!statistics"></app-spinner>

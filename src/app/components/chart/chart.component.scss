@@ -1,0 +1,52 @@
+@import "mixins";
+@import "variables";
+
+.table {
+  &._admin {
+    .mat-row:hover {
+      cursor: pointer;
+      background-color: $color-bg-gray;
+    }
+  }
+}
+
+.mat-row {
+  min-height: 20px;
+
+  &._active {
+    background-color: $color-bg-gray;
+  }
+}
+
+.mat-header-row {
+  min-height: 40px;
+}
+
+.mat-column-total,
+.mat-column-points {
+  flex: 0 0 50px;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.mat-column-correct {
+  flex: 0 0 70px;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.mat-column-correct.mat-cell {
+  color: $color-green;
+}
+
+.mat-column-counter {
+  flex: 0 0 40px;
+}
+
+.mat-column-name {
+  &.mat-cell {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  flex: 2 1 150px;
+}

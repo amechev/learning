@@ -1,0 +1,110 @@
+<mat-card class="themes">
+  <ng-container *ngIf="isLoaded">
+    <div *ngIf="!themes.length" class="themes__empty">
+      <span class="txt">Вы пока не создали ни одной темы</span>
+    </div>
+    <ul class="themes__list" *ngIf="themes.length">
+      <ng-container *ngFor="let item of themes">
+        <li class="themes__item" [ngClass]="{'_active': activeThemeOpened && item.id === activeThemeOpened.id}">
+          <mat-checkbox class="checkbox"
+                        title="Включить в рассылку"
+                        [checked]="item.isActive"
+                        (click)="$event.stopPropagation()"
+                        (change)="onThemeStatusChange(item, $event)">
+          </mat-checkbox>
+
+          <div class="themes__item-title"
+               title="Детализация темы"
+               (click)="openThemeDetails(item)">
+            <span class="txt">{{ item.name }}</span>
+            <span class="txt _cnt">
+          {{ item.correct }}/{{ item.total }} <mat-icon>navigate_next</mat-icon>
+        </span>
+          </div>
+
+        </li>
+      </ng-container>
+
+    </ul>
+    <footer class="themes__toolbar" *ngIf="isToolbarVisible()">
+      <button mat-flat-button class="button _add"
+              (click)="onOpenNewThemeForm()"
+              title="Создать новую тему">
+        <mat-icon>add</mat-icon>
+      </button>
+    </footer>
+
+    <ng-container *ngIf="isNewThemeFormActive">
+      <app-theme-add-form
+        (success)="addNewTheme($event)"
+        (reset)="onCloseNewThemeForm($event)">
+      </app-theme-add-form>
+    </ng-container>
+
+  </ng-container>
+
+</mat-card>
+
+<div class="theme-inner" >
+
+  <ng-container *ngIf="themeDetailsLoaded">
+    <mat-card *ngIf="activeThemeOpened && questions" class="theme-inner__head">
+
+      <ng-container *ngIf="!isEditThemeFormActive">
+        <h3 class="theme__title"> {{ activeThemeOpened.name }}</h3>
+
+        <span class="theme__toolbar">
+        <span class="txt">Вопросов {{ questions.length }}</span>
+        <button mat-icon-button class="button _edit" (click)="onOpenEditThemeForm($event)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button class="button _delete" (click)="onOpenDeleteTHeme($event)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button class="button _delete" (click)="onOpenQuestionForm($event)">
+          <mat-icon>add</mat-icon>
+        </button>
+      </span>
+      </ng-container>
+
+      <ng-container *ngIf="isEditThemeFormActive">
+        <app-theme-edit-form
+          [theme]="activeThemeOpened"
+          (success)="updateTheme($event)"
+          (reset)="onCloseEditThemeForm($event)"></app-theme-edit-form>
+      </ng-container>
+
+    </mat-card>
+
+    <ng-container *ngIf="isNewQuestionFormActive">
+      <app-question-setup class="question-form"
+                          [question]="generateNewQuestion()"
+                          [isEdit]="true"
+                          (closeForm)="onCloseQuestionForm()"
+                          (create)="createQuestion($event)"
+      ></app-question-setup>
+    </ng-container>
+
+    <section class="theme__questions" *ngIf="activeThemeOpened && questions">
+      <app-question-setup class="question-form"
+                          *ngFor="let item of questions"
+                          (delete)="deleteQuestion($event)"
+                          (update)="updateQuestion($event)"
+                          [question]="item"></app-question-setup>
+    </section>
+  </ng-container>
+
+  <app-spinner *ngIf="!themeDetailsLoaded" [isSpinnerOn]="true"></app-spinner>
+
+</div>
+
+<ng-container *ngIf="confirmDeleteTheme">
+  <app-confirm title="Удалить эту тему?"
+               confirmTitle="Удалить"
+               cancelTitle="Отменить"
+               (confirm)="deleteTheme(activeThemeOpened)"
+               (cancel)="confirmDeleteTheme = false">
+  </app-confirm>
+</ng-container>
+
+<app-spinner *ngIf="!isLoaded" [isSpinnerOn]="true"></app-spinner>

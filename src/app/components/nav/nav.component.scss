@@ -1,0 +1,36 @@
+@import "~radius-library/assets/mixins";
+@import "~radius-library/assets/variables";
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0 40px;
+  background-color: $color-white;
+}
+
+.link {
+  display: block;
+  position: relative;
+  padding: 17px 14px 14px;
+  @include font-stack-main;
+  font-size: 14px;
+  line-height: 19px;
+
+  & + & {
+    margin-left: 30px;
+  }
+
+  &:link,
+  &:visited {
+    text-decoration: none;
+    font-weight: bold;
+    color: $color-txt;
+    opacity: 0.7;
+
+    &._active {
+      opacity: 1;
+      box-shadow: inset 0px -3px 0 0 $color-blue;
+    }
+  }
+}

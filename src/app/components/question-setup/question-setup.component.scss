@@ -1,0 +1,152 @@
+@import "mixins";
+@import 'fonts';
+@import "variables";
+
+.question__theme {
+  font-size: 14px;
+  opacity: 1;
+}
+
+.question__title {
+  display: flex;
+  font-size: 16px;
+  font-weight: 400;
+
+  .mat-checkbox {
+    margin-right: 16px;
+  }
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.button,
+.input {
+  &._answer {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: left;
+    font-weight: 400;
+    white-space: normal;
+    height: auto;
+    line-height: 20px;
+    min-height: 40px;
+  }
+
+  &[disabled] {
+    color: $color-txt;
+    background-color: $color-bg-gray;
+    border-color: $color-grey;
+
+    &._correct {
+      border-color: $color-green;
+    }
+  }
+
+  &._reset {
+    color: $color-grey;
+  }
+
+  &._save {
+    color: $color-blue;
+  }
+}
+
+.mat-form-field.mat-focused._correct,
+.mat-form-field._correct {
+  &::ng-deep {
+    .mat-form-field-label {
+      color: $color-green;
+    }
+
+    .input {
+      border-color: $color-green;
+    }
+  }
+}
+
+.button {
+  .mat-icon {
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  &._delete {
+    margin-right: 16px;
+  }
+
+  &._add-answer {
+    color: $color-grey;
+  }
+
+  &._remove-answer {
+    display: none;
+  }
+}
+
+.checkbox {
+  font-size: 14px;
+}
+
+.question__header::ng-deep {
+  .mat-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: visible;
+  }
+}
+
+.question__toolbar {
+  display: flex;
+  align-items: center;
+  .txt {
+    margin-right: 16px;
+
+    &._correct {
+      color: $color-green;
+    }
+  }
+}
+
+
+.question-form {
+
+}
+
+.question-form__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.question-form__answers-title {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.question-form__answers-list {
+  @include nl;
+}
+
+.box {
+  margin-bottom: 16px;
+
+  &._answer:hover {
+    position: relative;
+    .button {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+}
+
+.txt {
+  max-width: 100%;
+  word-break: break-word;
+}

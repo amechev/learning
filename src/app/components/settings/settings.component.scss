@@ -1,0 +1,174 @@
+@import "mixins";
+@import 'fonts';
+@import "variables";
+
+.button._open {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 7px;
+  display: flex;
+  align-items: center;
+  color: $color-grey;
+}
+
+.layout-back {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  background-color: $color-white;
+  opacity: 0.5;
+  z-index: 5;
+}
+
+.settings__inner {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 500px;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: auto;
+  background-color: $color-white;
+  border-left: 1px solid $color-border;
+  display: flex;
+  flex-direction: column;
+  @include font-stack-main;
+  z-index: 100;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 16px 0;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-top: 1px solid $color-border;
+  padding-top: 10px;
+}
+
+.title {
+  margin: 0;
+  font-size: 20px;
+  color: $color-txt;
+  font-weight: 500;
+}
+
+.button {
+  display: block;
+  color: $color-grey;
+
+  &._save {
+    color: $color-blue;
+  }
+}
+
+.form__section {
+  display: block;
+  padding: 0 16px;
+  margin-bottom: 32px;
+}
+
+.form__section-title {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+}
+
+.form__section-content {
+  margin-bottom: 16px;
+}
+
+.points {
+  width: 100px;
+  margin-right: 16px;
+}
+
+.time {
+  width: calc(50% - 8px);
+
+  &._from {
+    margin-right: 16px;
+  }
+}
+
+.box {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.frequency {
+  width: 100%;
+}
+
+.days-title {
+  margin: 16px 0 0;
+  font-size: 11px;
+  line-height: 13px;
+  color: $color-grey;
+  font-weight: 400;
+}
+
+.days-body {
+  display: flex;
+}
+
+.mat-checkbox {
+  &::ng-deep {
+    .mat-checkbox-layout {
+      display: flex;
+      flex-direction: column;
+      margin-right: 10px;
+      margin-top: 10px;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .mat-checkbox-inner-container {
+      margin: 0;
+    }
+  }
+}
+
+.mat-form-field.mat-focused._correct,
+.mat-form-field._correct {
+  &::ng-deep {
+    .mat-form-field-label {
+      color: $color-green;
+    }
+    .input {
+      border-color: $color-green;
+    }
+  }
+}
+
+.mat-form-field.mat-focused._wrong,
+.mat-form-field._wrong {
+  &::ng-deep {
+    .mat-form-field-label {
+      color: $color-error;
+    }
+    .input {
+      border-color: $color-error;
+    }
+  }
+}
+
+.mat-form-field.mat-focused._lost,
+.mat-form-field._lost {
+  &::ng-deep {
+    .mat-form-field-label {
+      color: $color-txt;
+    }
+    .input {
+      border-color: $color-txt;
+    }
+  }
+}

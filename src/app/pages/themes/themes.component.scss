@@ -1,0 +1,144 @@
+@import "mixins";
+@import 'fonts';
+@import "variables";
+
+:host {
+  display: flex;
+  flex-direction: row;
+  padding: 16px;
+  min-height: 100%;
+  align-items: flex-start;
+}
+
+.themes {
+  padding: 0;
+  width: 40%;
+}
+
+.themes__empty {
+  padding: 16px;
+  text-align: center;
+}
+
+.themes__list {
+  @include nl;
+}
+
+.themes__item {
+  min-height: 36px;
+  display: flex;
+  justify-content: space-between;
+  line-height: 36px;
+
+  &._active {
+    background-color: $color-bg-gray;
+  }
+}
+
+.themes__item-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-right: 10px;
+  color: $color-grey;
+  line-height: 35px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .txt {
+    display: flex;
+    padding: 8px 0;
+    align-items: center;
+    line-height: 16px;
+
+    &._cnt {
+      font-size: 14px;
+      line-height: 18px;
+    }
+
+      &:first-child {
+        width: 100%;
+        text-align: left;
+      }
+    }
+}
+
+.theme-inner {
+  position: relative;
+  min-height: 500px;
+  width: calc(60% - 16px);
+  margin-left: 16px;
+}
+
+.theme__title {
+  font-size: 16px;
+  margin: 0;
+}
+
+.theme-inner__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 6px 8px 6px 16px;
+
+  .txt {
+    margin-right: 10px;
+    font-size: 14px;
+    color: $color-grey;
+  }
+}
+
+.theme__toolbar {
+  display: flex;
+  align-items: center;
+}
+
+.themes__toolbar {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  border-top: 1px solid $color-bg-gray;
+  align-items: center;
+}
+
+.button {
+  .mat-icon {
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  &._add {
+    width: 100%;
+    color: $color-light-blue;
+  }
+}
+
+.button._edit {
+  color: $color-grey;
+  min-width: 0;
+
+  .mat-icon {
+    font-size: 20px;
+  }
+}
+
+.checkbox {
+  margin: 0 16px;
+}
+
+.question__toolbar {
+  display: flex;
+  align-items: center;
+  .txt {
+    margin-right: 16px;
+  }
+}
+
+.question-form {
+  display: block;
+  margin-bottom: 16px;
+}

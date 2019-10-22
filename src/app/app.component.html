@@ -1,0 +1,16 @@
+<div class="wrapper" [ngClass]="{'_blocked': isSettingsOpen}">
+  <ng-container *ngIf="isLoaded">
+    <app-nav *ngIf="isAdmin"></app-nav>
+    <router-outlet></router-outlet>
+    <app-settings class="settings"
+                  *ngIf="isAdmin && settings && frequencyOptions"
+                  [data]="settings"
+                  [frequencyOptions] = frequencyOptions
+                  (open)="onSettingsOpen()"
+                  (close)="onSettingsClose()"
+                  (update)="onSettingsUpdate($event)"></app-settings>
+  </ng-container>
+
+  <app-spinner [isSpinnerOn]="true" *ngIf="!isLoaded"></app-spinner>
+  <notifier-container></notifier-container>
+</div>

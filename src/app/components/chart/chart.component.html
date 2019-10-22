@@ -1,0 +1,61 @@
+<section class="charts-section">
+  <app-search (textChange)="onSearch($event)" *ngIf="isAdminLocation"></app-search>
+  <mat-table class="table"
+             [ngClass]="{'_admin': isAdminLocation}"
+             mat-table
+             [dataSource]="isAdminLocation ? chart : data"
+             multiTemplateDataRows>
+
+    <ng-container matColumnDef="counter">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>№</mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element; let i = renderIndex">
+        <span class="title">
+          {{ i + 1 }}
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>Имя</mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element">
+        <span class="title"
+              [innerHTML]="getFullName(element.user) | highlight : searchTerm">
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="correct">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>Правильно</mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element">
+        <span class="title">
+          {{ element.correct }}
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="total">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>Всего</mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element">
+        <div class="title">
+          {{ element.total }}
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="points">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>Баллы</mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element">
+        <span class="title">
+          {{ element.points }}
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row mat-row *matRowDef="let element; columns: displayedColumns;"
+             (click)="onUserClick(element)"
+             [ngClass]="{'_active': activeUserId && element.userId === activeUserId}"
+             class="example-expanded-row">
+    </mat-row>
+  </mat-table>
+</section>

@@ -1,0 +1,35 @@
+@import "mixins";
+@import 'fonts';
+@import "variables";
+
+:host {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 16px;
+  min-height: 100%;
+}
+
+.users,
+.user-themes,
+.user-theme-questions {
+  padding: 0;
+  overflow: hidden;
+
+  & + & {
+    margin-left: 16px;
+  }
+
+  &._loading {
+    opacity: 0.5;
+  }
+}
+
+.users {
+  width: 40%;
+}
+
+.user-themes,
+.user-theme-questions {
+  width: 30%;
+}

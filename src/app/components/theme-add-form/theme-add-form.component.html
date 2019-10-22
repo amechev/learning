@@ -1,0 +1,23 @@
+<form class="form"
+      [formGroup]="formGroupAdd"
+      (submit)="onSubmit()">
+  <mat-checkbox class="checkbox"
+                title="Включить в рассылку"
+                formControlName="isActiveTheme">
+  </mat-checkbox>
+
+  <mat-form-field>
+    <input matInput class="input"
+           placeholder="Введите название темы"
+           [required]="true"
+           [autofocus]
+           formControlName="themeName">
+  </mat-form-field>
+
+  <button mat-icon-button type="submit">
+    <mat-icon>done</mat-icon>
+  </button>
+  <button mat-icon-button type="reset" (click)="onClose()">
+    <mat-icon>close</mat-icon>
+  </button>
+</form>

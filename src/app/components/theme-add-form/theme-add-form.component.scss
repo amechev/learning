@@ -1,0 +1,24 @@
+@import "mixins";
+@import 'fonts';
+@import "variables";
+
+.form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding-left: 0;
+  border: none;
+  outline: none;
+}
+
+.checkbox {
+  margin: 0 16px;
+}
+
+.mat-form-field {
+  width: 100%;
+}

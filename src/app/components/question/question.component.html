@@ -1,0 +1,55 @@
+<mat-expansion-panel class="question"
+                     (opened)="panelOpenState = true"
+                     (closed)="panelOpenState = false"
+                     [expanded]="isFirst">
+  <mat-expansion-panel-header class="question__header"
+                              [collapsedHeight]="'50px'"
+                              [expandedHeight]="'50px'">
+    <span class="question__theme _closed" *ngIf="!panelOpenState">
+      {{ data.question.name }}
+    </span>
+    <span class="question__theme" *ngIf="panelOpenState">
+      {{ data.themeName }}
+    </span>
+    <span class="points"
+          *ngIf="!data.current"
+          [ngClass]="{'_correct': data.points && data.answerOption === data.correctAnswer,
+                      '_wrong': data.points && data.answerOption !== data.correctAnswer}">
+      баллов {{ data.points || 0 }}
+    </span>
+  </mat-expansion-panel-header>
+
+  <section class="question__body">
+    <h1 class="question__title"> {{ data.question.name }}</h1>
+
+    <div class="question__form">
+      <button mat-stroked-button
+              class="button _answer"
+              *ngFor="let item of data.question.answerOptions"
+              [disabled]="!data.current || isDisabled"
+              [ngClass]="{'_correct': isCorrect(item),
+                          '_wrong': isWrong(item)}"
+              (click)="select(item)">
+        {{ item.name }}
+        <mat-icon class="icon-correct">done</mat-icon>
+        <mat-icon class="icon-wrong">close</mat-icon>
+      </button>
+    </div>
+  </section>
+
+  <mat-expansion-panel [expanded]="isFirst"
+                       class="question__description"
+                       *ngIf="!data.current && data.question.description">
+    <mat-expansion-panel-header
+      [collapsedHeight]="'40px'"
+      [expandedHeight]="'40px'">
+      <mat-divider></mat-divider>
+    </mat-expansion-panel-header>
+
+    <span class="txt">
+      {{ data.question.description }}
+    </span>
+
+  </mat-expansion-panel>
+
+</mat-expansion-panel>

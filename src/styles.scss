@@ -1,0 +1,19 @@
+@import "~angular-notifier/styles";
+@import "~radius-library/assets/styles";
+.notifier__container ul {
+  margin: 0;
+  padding: 0;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+body, html {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: overlay;
+}

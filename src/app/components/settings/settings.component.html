@@ -1,0 +1,126 @@
+<button mat-flat-button
+        class="button _open"
+        (click)="onOpenSettings()">
+  <mat-icon>settings</mat-icon>
+  Настройки
+</button>
+
+<section class="settings" *ngIf="isSettingsOpen">
+  <div class="layout-back" (click)="onCloseSettings()"></div>
+  <div class="settings__inner">
+    <header class="header">
+      <h2 class="title">Настройки</h2>
+      <button mat-icon-button class="button _close"
+              (click)="onCloseSettings()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </header>
+
+    <form class="form" [formGroup]="formGroup"
+          (ngSubmit)="onSubmit()">
+
+      <section class="form__section">
+        <h3 class="form__section-title">Показывать вопросы</h3>
+        <div class="form__section-content">
+          <mat-form-field class="time _from">
+            <input matInput
+                   type="time"
+                   class="input"
+                   placeholder="C"
+                   formControlName="inputFromTime"
+                   [required]="true">
+          </mat-form-field>
+          <mat-form-field class="time _till">
+            <input matInput
+                   type="time"
+                   class="input"
+                   placeholder="До"
+                   formControlName="inputTillTime"
+                   [required]="true">
+          </mat-form-field>
+
+          <mat-form-field class="box">
+            <mat-select class="select frequency"
+                        placeholder="Частота"
+                        formControlName="selectFrequency">
+              <mat-option *ngFor="let item of frequencyOptions"
+                          [value]="item.id">
+                {{ item.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <section class="days-box">
+            <h4 class="days-title">День</h4>
+            <div class="days-body">
+              <ng-container *ngFor="let control of formGroup.controls['days'].controls, let i = index">
+                <mat-checkbox class="checkbox" [formControl]="control">
+                  {{ DAYSINWEEK[i] }}
+                </mat-checkbox>
+              </ng-container>
+            </div>
+          </section>
+
+        </div>
+      </section>
+
+      <section class="form__section">
+        <h3 class="form__section-title">Вес ответов (баллов)</h3>
+        <div class="form__section-content">
+          <mat-form-field class="points _correct">
+            <input matInput
+                   class="input _correct"
+                   type="number"
+                   placeholder="Верный"
+                   formControlName="inputCorrect"
+                   [required]="true">
+          </mat-form-field>
+          <mat-form-field class="points _wrong">
+            <input matInput
+                   class="input _wrong"
+                   type="number"
+                   placeholder="Не верный"
+                   formControlName="inputWrong"
+                   [required]="true">
+          </mat-form-field>
+          <mat-form-field class="points _lost">
+            <input matInput
+                   class="input _lost"
+                   type="number"
+                   placeholder="Не ответил"
+                   formControlName="inputLost"
+                   [required]="true">
+          </mat-form-field>
+        </div>
+      </section>
+
+      <section class="form__section">
+        <h3 class="form__section-title">Показывать вопрос</h3>
+        <div class="form__section-content">
+          <mat-form-field>
+            <input matInput
+                   class="input"
+                   placeholder="Верных ответов"
+                   formControlName="inputCounts"
+                   [required]="true">
+          </mat-form-field>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <button mat-flat-button class="button _reset" (click)="onCloseSettings()">ОТМЕНА</button>
+        <button mat-flat-button class="button _save">СОХРАНИТЬ</button>
+      </footer>
+    </form>
+  </div>
+</section>
+
+<ng-container *ngIf="confirmClose">
+  <app-confirm title="Закрыть не сохраняя?"
+               confirmTitle="Закрыть"
+               cancelTitle="Остаться"
+               (confirm)="closeForm(); confirmClose = false"
+               (cancel)="confirmClose = false">
+  </app-confirm>
+</ng-container>
+

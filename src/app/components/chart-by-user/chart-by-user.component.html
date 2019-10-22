@@ -1,0 +1,41 @@
+<section class="themes-section">
+  <mat-table class="table"
+             mat-table
+             [dataSource]="data"
+             multiTemplateDataRows>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>Тема</mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element">
+        <span class="title">
+          {{ element.name }}
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="correct">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>Правильно</mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element">
+        <span class="title" [ngClass]="{'_empty': element.correct === 0}">
+          {{ element.correct }}
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="total">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>Всего</mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element">
+        <div class="title">
+          {{ element.total }}
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row mat-row *matRowDef="let element; columns: displayedColumns;"
+             (click)="onOpenTheme(element)"
+             [ngClass]="{'_active': activeThemeId && element.id === activeThemeId}"
+             class="example-expanded-row">
+    </mat-row>
+  </mat-table>
+</section>
